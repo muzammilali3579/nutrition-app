@@ -5,7 +5,7 @@ const wrapper = document.querySelector(".wrapper"),
   body = document.body;
   const categoryInstructions = {
     "Very Healthy": `
-      <h2 style=color:black;>🟢 Very Healthy (Score: 85–110)</h2><br>
+      <h2 style=color:black;>🟢 Very Healthy </h2><br>
       <p><strong>"Keep it up!"</strong></p><br>
       <p>You’re making great choices! These foods are packed with nutrients your body loves. Keep including them in your daily meals, and don’t forget to enjoy a variety of fruits, veggies, whole grains, and proteins. Just balance it all out and stay active.</p>
       <br><h3>🟩 Instructions:</h3>
@@ -18,7 +18,7 @@ const wrapper = document.querySelector(".wrapper"),
       </ul>
     `,
     "Healthy": `
-      <h2 style=color:black;>🟡 Healthy (Score: 60–84)</h2>
+      <h2 style=color:black;>🟡 Healthy</h2>
       <p><strong>"Almost there!"</strong></p>
       <p>These foods are pretty solid. A few small tweaks—like reducing added salt or sugar—can make them even better. Try pairing them with something high in fiber or low in fat for a more balanced plate. You're on the right track!</p>
       <h3>🟨 Instructions:</h3>
@@ -30,7 +30,7 @@ const wrapper = document.querySelector(".wrapper"),
       </ul>
     `,
     "Moderate": `
-      <h2 style=color:black;>🟠 Moderate (Score: 40–59)</h2><br>
+      <h2 style=color:black;>🟠 Moderate </h2><br>
       <p><strong>"Okay in moderation."</strong></p><br>
       <p>These aren’t the worst, but they shouldn’t be your everyday go-to. Maybe save them for a treat or tweak the recipe to be lighter. Add some veggies or choose smaller portions—little changes can go a long way.</p>
       <br><h3>🟧 Instructions:</h3>
@@ -43,7 +43,7 @@ const wrapper = document.querySelector(".wrapper"),
       </ul>
     `,
     "Unhealthy": `
-      <h2 style=color:black;>🔴 Unhealthy (Score: <40)</h2>
+      <h2 style=color:black;>🔴 Unhealthy </h2>
       <p><strong>"Limit these."</strong></p>
       <p>These foods are best enjoyed occasionally. They're likely high in sugar, salt, or unhealthy fats and low in nutrients. Try to swap them with healthier alternatives or enjoy them in small amounts. Your body will thank you.</p>
       <h3>🟥 Instructions:</h3>
@@ -63,8 +63,17 @@ fetch("dataset.json")
   .then((response) => response.json())
   .then((data) => {
     dishData = data;
+    shuffleArray(dishData);  // Shuffle only once after loading the data
+
     addOptions();
   });
+// Shuffle function to randomize the array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+}
 
 function getBgColor(category) {
   switch (category.toLowerCase()) {
