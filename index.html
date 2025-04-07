@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">  
+  <title>Nutrition App</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: cornsilk;
+      margin-top: 20px;
+    }
+
+    .wrapper {
+      text-align: center;
+      margin: 30px auto 10px;
+    }
+
+    .select-btn {
+      display: inline-block;
+      background: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .content {
+      display: none;
+    }
+
+    @keyframes fadeSlideInRight {
+      0% { opacity: 0; transform: translateX(60px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeSlideInLeft {
+      0% { opacity: 0; transform: translateX(-60px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .card-style {
+      background-color: white;
+      color: #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .slide-in-right {
+      animation: fadeSlideInRight 0.9s ease forwards;
+    }
+
+    .slide-in-left {
+      animation: fadeSlideInLeft 0.9s ease forwards;
+    }
+
+    #dish-info {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Food Nutrition Analyzer</h2>
+
+  <div class="wrapper">
+    <div class="select-btn">
+      <span>Select any food item for nutrition info</span>
+      <i class="uil uil-angle-down"></i>
+    </div>
+    <div class="content">
+      <div class="search">
+        <i class="uil uil-search"></i>
+        <input spellcheck="false" type="text" placeholder="Search">
+      </div>
+      <ul class="options"></ul>
+    </div>
+  </div>
+
+  <!-- Styled and animated -->
+  <div id="dish-info" class="card-style"></div>
+  <div id="info" class="card-style"></div>
+
+  <script src="script.js"></script>
+  <script>
+    const dishInfo = document.getElementById("dish-info");
+    const infoSection = document.getElementById("info");
+
+    function animateInfo() {
+      dishInfo.className = "card-style";
+      infoSection.className = "card-style";
+
+      void dishInfo.offsetWidth;
+      void infoSection.offsetWidth;
+
+      dishInfo.classList.add("slide-in-right");
+      infoSection.classList.add("slide-in-left");
+    }
+
+    // Hook into updateName
+    const originalUpdateName = window.updateName;
+    window.updateName = function (selectedLi) {
+      originalUpdateName(selectedLi);
+      animateInfo();
+    };
+  </script>
+</body>
+</html>
